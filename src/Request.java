@@ -1,47 +1,70 @@
 
-
-
 public class Request {
 	
-	public static enum Type { Landing, Takeoff };
 	public static enum Status { Waiting, Fulfilled };
-		
-	private static int numLandingRequests = 0;
-	private static int numTakeoffRequests = 0;
+	public static enum Type { Landing, Takeoff };
 	
-	public Type type;
+	public static int numLandingRequestsStarted = 0;
+	public static int numTakeoffRequestsStarted = 0;
+	public static int numLandingRequestsFulfilled = 0;
+	public static int numTakeoffRequestsFulfilled = 0;
+	public static double avgLandingRequestTime = 0;
+	public static double avgTakeoffRequestTime = 0;
+
 	public Status status;
-	public String timeEntered;
-	public String timeFulfilled;
-	public String totalTime;
+	public Type type;
+	public int slotEntered;
+	public int slotFulfilled;
+	public int totalSlots;
 	
 	
-	public Request(Type type, String time) {
-		if (type == Type.Landing) {
-			Request.numLandingRequests += 1;
+	public Request(int timeSlot, Type type) {
+		if (Type.Landing == type) {
+			numLandingRequestsStarted += 1;
 		} else {
-			Request.numTakeoffRequests += 1;
+			numTakeoffRequestsStarted += 1;
 		}
-		
 		this.type = type;
-		this.timeEntered = time;
+		this.slotEntered = timeSlot;
 	}
 	
 
-	public Request fulfill(String time) {
-		this.timeFulfilled = time;
+	public void fulfill(int timeSlot) {
 		this.status = Status.Fulfilled;
-		// Calculate the total time.
-		return this;
+		this.slotFulfilled = timeSlot;
+		this.totalSlots = this.slotFulfilled - this.slotEntered;
+		Request.addToAverage(this.type, this.totalSlots);
+	}
+	
+	private static void addToAverage(Type type, int totalSlots) {
+		double sum = totalSlots;
+		
+		if (Type.Landing == type) {
+			sum += avgLandingRequestTime * numLandingRequestsFulfilled;
+			numLandingRequestsFulfilled += 1;
+			avgLandingRequestTime = sum / numLandingRequestsFulfilled;
+		} else {
+			sum += avgTakeoffRequestTime * numTakeoffRequestsFulfilled;
+			numTakeoffRequestsFulfilled += 1;
+			avgTakeoffRequestTime = sum / numTakeoffRequestsFulfilled;
+		}
 	}
 	
 	
-	public static int totalLandingRequests() {
-		return Request.numLandingRequests;
+	public static int numRequestsCompleted(Type type) {
+		if (Type.Landing == type) {
+			return numLandingRequestsFulfilled;
+		}
+		return numTakeoffRequestsFulfilled;
 	}
 	
 	
-	public static int totalTakeoffRequests() {
-		return Request.numTakeoffRequests;
+	public static int numRequestsStarted(Type type) {
+		if (Type.Landing == type) {
+			return numLandingRequestsStarted;
+		}
+		return numTakeoffRequestsStarted;
 	}
+	
+	
 }

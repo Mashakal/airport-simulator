@@ -1,3 +1,6 @@
 /Request$Status.class
 /Request$Type.class
 /Request.class
+/LandingRequest.class
+/TakeoffRequests.class
+/TakeoffRequest.class
