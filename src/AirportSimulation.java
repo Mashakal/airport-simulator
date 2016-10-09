@@ -1,8 +1,24 @@
 
 
 public class AirportSimulation {
+	
+	private static int MINUTES_PER_TIME_SLOT = 5;
+	private static int MINUTES_TO_SIMULATE = 120;
 
 	public static void main(String[] args) {
+		// test_Request();
+		
+		AirportController controller = new AirportController();
+		
+		int iterations = MINUTES_TO_SIMULATE / MINUTES_PER_TIME_SLOT;
+		for (int i = 0; i < iterations; i++) {
+			controller.simulateTimeSlot(3, 3, i);
+		}
+		
+	}
+	
+	
+	private static void test_Request() {
 		Request takeoffRequest = new Request(5, Request.Type.Takeoff);
 		Request landingRequest = new Request(4, Request.Type.Landing);
 		
@@ -22,7 +38,6 @@ public class AirportSimulation {
 		
 		System.out.println(Request.avgTakeoffRequestTime);
 		System.out.println(Request.avgLandingRequestTime);
-		
 	}
 	
 }
