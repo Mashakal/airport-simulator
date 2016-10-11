@@ -5,14 +5,16 @@ public class AirportSimulation {
 	public static void main(String[] args) {
 		int MINUTES_PER_TIME_SLOT = 5;
 		int MINUTES_TO_SIMULATE = 120;
+		int POSSIBLE_REQUESTS_PER_TIME_SLOT = 3;
 
 //		test_Request();
+//		test_enum_printing();
 		
 		AirportController controller = new AirportController();
 
 		int iterations = MINUTES_TO_SIMULATE / MINUTES_PER_TIME_SLOT;
 		for (int i = 0; i < iterations; i++) {
-			controller.simulateTimeSlot(3, 3, i);
+			controller.simulateTimeSlot(POSSIBLE_REQUESTS_PER_TIME_SLOT, i);
 		}
 		
 	}
@@ -39,5 +41,12 @@ public class AirportSimulation {
 		System.out.println(Request.statistics.averageTime(Request.Type.Takeoff));
 		System.out.println(Request.statistics.averageTime(Request.Type.Landing));
 	}
-	
+
+
+	private static void test_enum_printing() {
+		Request.Type type = Request.Type.Landing;
+		System.out.println(type);
+		System.out.println(type.toString());
+		System.out.println(type.toString().toLowerCase());
+	}
 }

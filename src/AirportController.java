@@ -1,44 +1,67 @@
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class AirportController {
 	
-	private LinkedList<Plane> landingQueue;
-	private LinkedList<Plane> takeoffQueue;
-	
-	private int nextTakeoffId = 2;
-	private int nextLandingId = 3;
+	private static HashMap<Request.Type, ControllerData> data = new HashMap<>();
 	
 	private static final String planeStr = "Plane #%d has entered the %s queue.";
 	private static final String timeStr = "The time is: %d";
-	
-	
-	public AirportController() {
-		this.landingQueue = new LinkedList<Plane>();
-		this.takeoffQueue = new LinkedList<Plane>();
-	}
-	
 
-	public void simulateTimeSlot(int numTakeoff, int numLanding, int timeSlot) {
-		// Handle new requests.
+
+	public AirportController() {
+		for (Request.Type type : Request.Type.values()) {
+			// TODO:  Make the below line more maintainable.
+			int first = (type == Request.Type.Landing) ? 1 : 2;
+			data.put(type, new ControllerData(first));
+		}
+	}
+
+
+	public void simulateTimeSlot(int iterations, int timeSlot) {
 		System.out.println(String.format(timeStr, timeSlot));
-		Request.Type requestType = Request.Type.Takeoff;
-		for (int i = 0; i < numTakeoff; i++) {
-			if (isTrue()) {
-				// A new takeoff request is to be made.
-				Plane p = new Plane(nextTakeoffId, new Request(timeSlot, requestType));
-				System.out.println(String.format(planeStr, nextTakeoffId, "takeoff"));
-				nextTakeoffId += 2;
-				takeoffQueue.add(p);
+		for (int i = 0; i < iterations; i++) {
+			for (Request.Type type : Request.Type.values()) {
+				if (isTrue()) {
+					Plane p = new Plane(data.get(type).getNextId(), new Request(timeSlot, type));
+					System.out.println(String.format(planeStr, p.id, type.toString().toLowerCase()));
+					data.get(type).push(p);
+				}
 			}
 		}
 	}
 	
 	
 	private boolean isTrue() {
-		double r = Math.random();
-		if (r < 0.5) {
-			return false;
+		return (Math.random() < 0.5);
+	}
+
+
+	private class ControllerData {
+		private LinkedList<Plane> queue;
+		private int nextId;
+
+
+		private ControllerData(int firstId) {
+			queue = new LinkedList<>();
+			nextId = firstId;
 		}
-		return true;
+
+
+		private int getNextId() {
+			int id = nextId;
+			nextId += 2;
+			return id;
+		}
+
+
+		private void push(Plane p) {
+			queue.add(p);
+		}
+
+
+		private Plane pop() {
+			return queue.removeFirst();
+		}
 	}
 }
