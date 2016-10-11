@@ -1,15 +1,15 @@
 
 
 public class AirportSimulation {
-	
-	private static int MINUTES_PER_TIME_SLOT = 5;
-	private static int MINUTES_TO_SIMULATE = 120;
 
 	public static void main(String[] args) {
+		int MINUTES_PER_TIME_SLOT = 5;
+		int MINUTES_TO_SIMULATE = 120;
+
 		// test_Request();
 		
 		AirportController controller = new AirportController();
-		
+
 		int iterations = MINUTES_TO_SIMULATE / MINUTES_PER_TIME_SLOT;
 		for (int i = 0; i < iterations; i++) {
 			controller.simulateTimeSlot(3, 3, i);

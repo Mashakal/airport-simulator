@@ -1,8 +1,11 @@
+import java.util.HashMap;
 
 public class Request {
 	
-	public static enum Status { Waiting, Fulfilled };
-	public static enum Type { Landing, Takeoff };
+	public static enum Status { Waiting, Fulfilled }
+	public static enum Type { Landing, Takeoff }
+
+    private static RequestStatistics statistics = new RequestStatistics();
 	
 	public static int numLandingRequestsStarted = 0;
 	public static int numTakeoffRequestsStarted = 0;
@@ -65,6 +68,14 @@ public class Request {
 		}
 		return numTakeoffRequestsStarted;
 	}
-	
-	
+
+
+	static Class RequestStatistics {
+
+
+
+	}
+
+
+
 }
