@@ -6,7 +6,7 @@ public class AirportSimulation {
 		int MINUTES_PER_TIME_SLOT = 5;
 		int MINUTES_TO_SIMULATE = 120;
 
-		// test_Request();
+//		test_Request();
 		
 		AirportController controller = new AirportController();
 
@@ -21,23 +21,23 @@ public class AirportSimulation {
 	private static void test_Request() {
 		Request takeoffRequest = new Request(5, Request.Type.Takeoff);
 		Request landingRequest = new Request(4, Request.Type.Landing);
-		
-		System.out.println(Request.numRequestsCompleted(Request.Type.Landing));
-		System.out.println(Request.numRequestsStarted(Request.Type.Landing));
-		System.out.println(Request.numRequestsCompleted(Request.Type.Takeoff));
-		System.out.println(Request.numRequestsStarted(Request.Type.Takeoff));
+
+		System.out.println(Request.statistics.countStarted(Request.Type.Takeoff));
+		System.out.println(Request.statistics.countCompleted(Request.Type.Takeoff));
+		System.out.println(Request.statistics.countStarted(Request.Type.Landing));
+		System.out.println(Request.statistics.countCompleted(Request.Type.Landing));
 		
 		takeoffRequest.fulfill(8);
 		landingRequest.fulfill(9);
 		
 		takeoffRequest = new Request(7, Request.Type.Takeoff);
 		landingRequest = new Request(6, Request.Type.Landing);
-		
+
 		takeoffRequest.fulfill(11);
 		landingRequest.fulfill(10);
 		
-		System.out.println(Request.avgTakeoffRequestTime);
-		System.out.println(Request.avgLandingRequestTime);
+		System.out.println(Request.statistics.averageTime(Request.Type.Takeoff));
+		System.out.println(Request.statistics.averageTime(Request.Type.Landing));
 	}
 	
 }
