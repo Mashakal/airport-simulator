@@ -7,7 +7,7 @@ public class RequestStatistics {
 
     public void tallyStart(Request.Type type) {
         if (!stats.containsKey(type)) {
-            stats.put(type, new RequestStatistics.TypeStatistic());
+            stats.put(type, new TypeStatistic());
         } else {
             stats.get(type).start();
         }

@@ -5,7 +5,6 @@ public class Request {
 	public static enum Status { Waiting, Fulfilled }
 	public static enum Type { Landing, Takeoff }
 
-
     public static RequestStatistics statistics = new RequestStatistics();
 	
 	public Status status;
