@@ -4,7 +4,7 @@ public class AirportSimulation {
 
 	public static void main(String[] args) {
 		int MINUTES_PER_TIME_SLOT = 5;
-		int MINUTES_TO_SIMULATE = 120;
+		int MINUTES_TO_SIMULATE = 240;
 		int POSSIBLE_REQUESTS_PER_TIME_SLOT = 3;
 
 //		test_Request();

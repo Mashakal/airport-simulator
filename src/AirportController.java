@@ -6,16 +6,23 @@ public class AirportController {
 
 	private static final int NUM_RUNWAYS = 2;
 	private static final int TIME_SLOTS_TO_FULFILL = 3;
-	private static final double CHANCE_FOR_REQUEST = 0.13;
+	private static final double CHANCE_FOR_REQUEST = 0.125;
+	private static final int START_HOUR = 13;
+	private static final int START_MINUTE = 0;
+	private static final int MINUTES_PER_SLOT = 5;
 
+
+	private static Clock clock;
 	private static HashMap<Request.Type, ControllerData> data = new HashMap<>();
 	private static AirportRunway[] runways = new AirportRunway[NUM_RUNWAYS];
 	
-	private static final String planeStr = "Plane #%d has entered the %s queue.";
-	private static final String timeStr = "\tThe time is: %d";
+	private static final String planeStr = "\tPlane #%d has entered the %s queue.";
+	private static final String timeStr = "The time is %s:";
 
 
 	public AirportController() {
+		clock = new Clock(START_HOUR, START_MINUTE, MINUTES_PER_SLOT);
+
 		for (Request.Type type : Request.Type.values()) {
 			// TODO:  Make the below line more maintainable.
 			int first = (type == Request.Type.Landing) ? 1 : 2;
@@ -29,7 +36,8 @@ public class AirportController {
 
 
 	public void simulateTimeSlot(int iterations, int timeSlot) {
-		System.out.println(String.format(timeStr, timeSlot));
+		clock.increment();
+		System.out.println(String.format(timeStr, clock.toString()));
 
 		// Handle incoming requests.
 		for (int i = 0; i < iterations; i++) {

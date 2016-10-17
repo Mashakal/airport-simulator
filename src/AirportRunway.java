@@ -2,8 +2,8 @@
 
 public class AirportRunway {
 
-	private static String s_IsFinished = "Plane #%d has finished with %s on runway #%d.";
-	private static String s_IsCleared = "Plane #%d has been cleared for %s on runway #%d.";
+	private static String s_IsFinished = "\tPlane #%d has finished %s on runway #%d.";
+	private static String s_IsCleared = "\tPlane #%d has been cleared for %s on runway #%d.";
 	private static int nextRunwayId = 1;
 
 	private final int timeSlotsToFulfill;
