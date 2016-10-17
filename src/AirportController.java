@@ -6,7 +6,7 @@ public class AirportController {
 
 	private static final int NUM_RUNWAYS = 2;
 	private static final int TIME_SLOTS_TO_FULFILL = 3;
-	private static final double CHANCE_FOR_REQUEST = 0.12;
+	private static final double CHANCE_FOR_REQUEST = 0.13;
 
 	private static HashMap<Request.Type, ControllerData> data = new HashMap<>();
 	private static AirportRunway[] runways = new AirportRunway[NUM_RUNWAYS];
