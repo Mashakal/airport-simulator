@@ -44,7 +44,7 @@ public class RequestStatistics {
     public String getTypeStats(Request.Type type) {
         StringBuilder sb = new StringBuilder();
         sb.append("Statistics for " + type + " Requests:");
-        sb.append("\tTotal Requests Received: " + countStarted(type));
+        sb.append("\n\tTotal Requests Received: " + countStarted(type));
         sb.append("\n\tTotal Requests Completed: " + countCompleted(type));
         sb.append("\n\tAverage Time to Completion: " +
                 Clock.durationFromSlots(averageTime(type)));
