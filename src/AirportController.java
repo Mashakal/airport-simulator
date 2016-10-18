@@ -6,7 +6,7 @@ public class AirportController {
 
 	private static final int NUM_RUNWAYS = 2;
 	private static final int TIME_SLOTS_TO_FULFILL = 3;
-	private static final double CHANCE_FOR_REQUEST = 0.125;
+	private static final double CHANCE_FOR_REQUEST = 0.85;
 	private static final int START_HOUR = 13;
 	private static final int START_MINUTE = 0;
 	private static final int MINUTES_PER_SLOT = 5;
@@ -42,7 +42,7 @@ public class AirportController {
 		// Handle incoming requests.
 		for (int i = 0; i < iterations; i++) {
 			for (Request.Type type : Request.Type.values()) {
-				if (isTrue()) {
+				if (isTrue(type)) {
 					Plane p = new Plane(data.get(type).getNextId(), new Request(timeSlot, type));
 					System.out.println(String.format(planeStr, p.id, type.toString().toLowerCase()));
 					data.get(type).queue.addLast(p);
@@ -64,8 +64,10 @@ public class AirportController {
 
 	}
 	
-	private boolean isTrue() {
-		return (Math.random() <= CHANCE_FOR_REQUEST);
+	private boolean isTrue(Request.Type type) {
+		// Lower the chances of a generating a plane of this type based on the size of the queue.
+		int divisor = data.get(type).queue.size() > 0 ? data.get(type).queue.size() : 1;
+		return (Math.random() / divisor >= CHANCE_FOR_REQUEST);
 	}
 
 	private static Plane getNextPlane() {
@@ -115,5 +117,6 @@ public class AirportController {
 			nextId += 2;
 			return id;
 		}
+
 	}
 }

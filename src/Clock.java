@@ -36,6 +36,6 @@ public class Clock {
         double totalMinutes = slots * minutesPerSlot;
         int hours = (int) totalMinutes / 60;
         double minutes = totalMinutes % 60;
-        return String.format("%d hours and %.2f minutes.", hours, minutes);
+        return String.format("%d hours %.2f minutes.", hours, minutes);
     }
 }
