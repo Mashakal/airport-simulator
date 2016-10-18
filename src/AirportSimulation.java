@@ -16,7 +16,10 @@ public class AirportSimulation {
 		for (int i = 0; i < iterations; i++) {
 			controller.simulateTimeSlot(POSSIBLE_REQUESTS_PER_TIME_SLOT, i);
 		}
-		
+
+		// Print the statistics to the screen.
+		System.out.println();
+		Request.statistics.outputStats();
 	}
 	
 	

@@ -1,4 +1,6 @@
+import java.lang.StringBuilder;
 import java.util.HashMap;
+
 
 public class RequestStatistics {
 
@@ -33,6 +35,21 @@ public class RequestStatistics {
         return stats.get(type).averageTimeSlots;
     }
 
+    public void outputStats() {
+        for (Request.Type type : Request.Type.values()) {
+            System.out.println(getTypeStats(type));
+        }
+    }
+
+    public String getTypeStats(Request.Type type) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Statistics for " + type + " Requests:");
+        sb.append("\tTotal Requests Received: " + countStarted(type));
+        sb.append("\n\tTotal Requests Completed: " + countCompleted(type));
+        sb.append("\n\tAverage Time to Completion: " +
+                Clock.durationFromSlots(averageTime(type)));
+        return sb.toString();
+    }
 
     private class TypeStatistic {
 
