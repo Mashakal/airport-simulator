@@ -25,12 +25,12 @@ public class Clock {
         return hour + ":" + (minute < 10 ? "0" + minute : minute);
     }
 
-    public static String durationFromSlots(int slots) {
-        int totalMinutes = slots * minutesPerSlot;
-        int hours = totalMinutes / 60;
-        int minutes = totalMinutes % 60;
-        return String.format("%d hours and %d minutes.", hours, minutes);
-    }
+//    public static String durationFromSlots(int slots) {
+//        int totalMinutes = slots * minutesPerSlot;
+//        int hours = totalMinutes / 60;
+//        int minutes = totalMinutes % 60;
+//        return String.format("%d hours and %d minutes.", hours, minutes);
+//    }
 
     public static String durationFromSlots(double slots) {
         double totalMinutes = slots * minutesPerSlot;

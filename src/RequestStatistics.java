@@ -46,8 +46,8 @@ public class RequestStatistics {
         sb.append("Statistics for " + type + " Requests:");
         sb.append("\n\tTotal Requests Received: " + countStarted(type));
         sb.append("\n\tTotal Requests Completed: " + countCompleted(type));
-        sb.append("\n\tAverage Time to Completion: " +
-                Clock.durationFromSlots(averageTime(type)));
+        sb.append("\n\tAverage Waiting Time: " +
+                Clock.durationFromSlots(averageTime(type) - 3));
         return sb.toString();
     }
 
